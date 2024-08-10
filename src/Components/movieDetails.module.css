@@ -1,0 +1,26 @@
+
+.container {
+    padding: 20px;
+    background-color: #1c1c1c;
+    border-radius: 10px;
+    color: #ffffff;
+  }
+  
+  .imgContainer {
+    text-align: center;
+  }
+  
+  .imgContainerImg {
+    width: 50%;
+    border-radius: 10px;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .details {
+    margin-top: 20px;
+  }
+  

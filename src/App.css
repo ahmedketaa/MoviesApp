@@ -36,3 +36,6 @@
     transform: rotate(360deg);
   }
 }
+.specialH2::first-letter{
+  text-transform: uppercase;
+}
