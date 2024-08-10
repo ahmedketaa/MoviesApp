@@ -48,3 +48,10 @@ select {
 .specialH2::first-letter{
   text-transform: uppercase;
 }
+.custom-transition {
+  transition: all 0.5s ;
+}
+/* for light nav */
+.custom-bg-light{
+  background-color:rgb(225, 229, 232);
+}

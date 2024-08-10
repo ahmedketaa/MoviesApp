@@ -13,18 +13,19 @@ import Favorites from './Pages/Favorite';
 import TVShows from './Pages/TvShows';
 import People from './Pages/People';
 import { LanguageContext } from './Context/languageContext';
-
+import { ThemeContext } from './Context/ThemeContext';
 
 function App() {
   const [contextLang, setContextLang] = useState("EN")
-console.log(contextLang);
+  const [themeContext, setThemeContext] = useState("dark")
 
   return (
     <Provider store={MyStore}>
+      <ThemeContext.Provider value={{themeContext, setThemeContext}}>
       <LanguageContext.Provider value={{contextLang, setContextLang}}>
     <BrowserRouter>
       <NavBar />
-      <div dir={contextLang=="ar"?"rtl":''} className="mt-5 pt-4">
+      <div dir={contextLang=="ar"?"rtl":''}  className={`mt-5 pt-4 custom-transition ${themeContext==="light"?"bg-light text-dark":""}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginUser />} />
@@ -38,6 +39,7 @@ console.log(contextLang);
       <Footer />
     </BrowserRouter>
     </LanguageContext.Provider>
+    </ThemeContext.Provider>
     </Provider>
   );
 };

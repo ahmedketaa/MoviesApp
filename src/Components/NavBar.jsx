@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ButtonGroup, Dropdown } from "react-bootstrap";
 import { LanguageContext } from "../Context/languageContext";
 import { fetchTvShows } from "../Redux/reducer/tvShows";
 import { setLanguage } from "../Redux/Slice/language";
+import { ThemeContext } from "../Context/ThemeContext";
+import { DarkModeSwitch } from "react-toggle-dark-mode";
 
 export default function NavBar() {
   const favoriteCount = useSelector(
@@ -12,6 +14,13 @@ export default function NavBar() {
   );
   const dispatch = useDispatch();
   const { contextLang, setContextLang } = useContext(LanguageContext);
+  const {themeContext,setThemeContext}= useContext(ThemeContext);
+  const [darkMode, setDarkMode] = useState(true);
+
+  const toggleDarkMode=()=>{
+    setDarkMode(!darkMode)
+    setThemeContext(themeContext=="dark"?"light":"dark")
+  }
   const page = 1; 
   const translation  = useSelector((state) => state.language.translation)
   
@@ -24,23 +33,36 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+    <nav className={`navbar navbar-expand-lg fixed-top custom-transition  ${themeContext==="light"?" navbar-light text-dark custom-bg-light ":"navbar-dark  bg-dark "}`}>
       <div className="container-fluid">
+        <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li className="nav-item">
         <Link className="navbar-brand" to="/">
           TMV
         </Link>
-        <Link className="nav-link text-light" to="/">
+        </li>
+        <li className="nav-item">
+        <Link className="nav-link " to="/">
           {translation.movies}
         </Link>
-        <Link className="nav-link text-light" to="/tv-shows">
+        </li>
+        <li className="nav-item">
+        <Link className="nav-link " to="/tv-shows">
         {translation.tv}
         </Link>
-        <Link className="nav-link text-light" to="/people">
+        </li>
+        <li className="nav-item">
+        <Link className="nav-link " to="/people">
           {translation.people}
         </Link>
+        </li>
+        <li className="nav-item">
         <Link to="/favorites" className="nav-link text-warning">
           {translation.Favorites} {`(${favoriteCount})`}
         </Link>
+        </li>
+        </ul>
+       
         <button
           className="navbar-toggler"
           type="button"
@@ -80,6 +102,14 @@ export default function NavBar() {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
+            </li>
+            <li className="nav-item">
+            <DarkModeSwitch
+                style={{ margin: '7px 9px 0' }}
+                checked={darkMode}
+                onChange={toggleDarkMode}
+                size={25}
+              />
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/login">

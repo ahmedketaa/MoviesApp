@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {  useNavigate } from 'react-router-dom';
 import styles from './card.module.css';
 import { IoMdStarOutline } from "react-icons/io";
@@ -8,25 +8,27 @@ import { FaStar } from 'react-icons/fa';
 import { Rating } from 'primereact/rating';
 import { Knob } from 'primereact/knob';
 import { Badge } from 'react-bootstrap';
+import { ThemeContext } from '../Context/ThemeContext';
 
 
 export default function MovieCard ({ movie }) {
+  const {themeContext}= useContext(ThemeContext);
+
   const dispatch = useDispatch();
     const navigate =useNavigate()
     const isFav = useSelector ((state)=> state.favorites.favorites.find((fav)=> fav?.id===movie.id))
     const handleImageClick = () => {
       navigate(`/movie/${movie.id}`); 
     };
-  
   const handleFavoriteClick = () => {
     dispatch(isFav ? removeFromFavorites(movie.id) : addToFavorites(movie));
   };
   return (
-    <div className={`pb-0 ${styles.card}`}>
+    <div className={`pb-0 ${themeContext==="light"? "custom-bg-light text-dark": styles.card} `}>
       <Badge bg="info"  style={{position:"absolute" ,top:0, right:"10px" ,fontSize:"20px" ,textAlign:"center"}}>{movie.original_language}</Badge>
       <img onClick={()=>handleImageClick(movie)} src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} style={{cursor:"pointer"}} className={`card-img-top  ${styles.cardImgTop}`} alt={movie.title} />
            <div className={`card-body ${styles.cardBody}`}>
-        <h5 className={`card-title ${styles.cardTitle}`}>{movie.title ||movie.name}</h5>
+        <h5 className={`card-title ${themeContext==="light"? "text-dark":styles.cardTitle}`}>{movie.title ||movie.name}</h5>
         <div className="text-info d-flex align-items-center  justify-content-between  text-info">
             <Rating value={movie.vote_average /2} readOnly cancel={false} />
           <div style={{backgroundColor:"#40a3cb5e" ,borderRadius:"50%"}}>
