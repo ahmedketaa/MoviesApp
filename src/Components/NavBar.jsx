@@ -76,7 +76,7 @@ export default function NavBar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Dropdown as={ButtonGroup}>
                 <Dropdown.Toggle
                   id="dropdown-custom-components"
@@ -102,7 +102,7 @@ export default function NavBar() {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-            </li>
+            </li> */}
             <li className="nav-item">
             <DarkModeSwitch
                 style={{ margin: '7px 9px 0' }}
